@@ -1,0 +1,273 @@
+-- CREATING SCHEMA --
+
+CREATE SCHEMA `sql_university_project` ;
+
+-- CREATING STUDENT TABLE --
+CREATE TABLE `sql_university_project`.`students` (
+  `students_id` INT NOT NULL AUTO_INCREMENT,
+  `students_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`students_id`),
+  UNIQUE INDEX `students_id_UNIQUE` (`students_id` ASC) VISIBLE);
+  
+-- CREATING PROFESSORS TABLE --
+CREATE TABLE `sql_university_project`.`professors` (
+  `professors_id` INT NOT NULL AUTO_INCREMENT,
+  `professors_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`professors_id`),
+  UNIQUE INDEX `professors_id_UNIQUE` (`professors_id` ASC) VISIBLE);
+  
+-- CREATING COURSES TABLE --
+CREATE TABLE `sql_university_project`.`courses` (
+  `courses_id` INT NOT NULL AUTO_INCREMENT,
+  `courses_name` VARCHAR(45) NOT NULL,
+  `courses_professor_id` INT NOT NULL,
+  PRIMARY KEY (`courses_id`),
+  INDEX `courses_professor_id_idx` (`courses_professor_id` ASC) VISIBLE,
+  CONSTRAINT `courses_professor_id`
+    FOREIGN KEY (`courses_professor_id`)
+    REFERENCES `sql_university_project`.`professors` (`professors_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+-- CREATING GRADES TABLE --
+CREATE TABLE `sql_university_project`.`grades` (
+  `grades_id` INT NOT NULL AUTO_INCREMENT,
+  `grades_percentage` DECIMAL(3,2) NOT NULL,
+  `grades_student_id` INT NOT NULL,
+  `grades_course_id` INT NOT NULL,
+  PRIMARY KEY (`grades_id`),
+  UNIQUE INDEX `grades_id_UNIQUE` (`grades_id` ASC) VISIBLE,
+  INDEX `grades_student_id_idx` (`grades_course_id` ASC) VISIBLE,
+  CONSTRAINT `grades_student_id`
+    FOREIGN KEY (`grades_course_id`)
+    REFERENCES `sql_university_project`.`students` (`students_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `grades_course_id`
+    FOREIGN KEY (`grades_course_id`)
+    REFERENCES `sql_university_project`.`courses` (`courses_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- INSERTING STUDENT RECORDS --
+INSERT INTO students(students_name)
+VALUES ("Jim");
+
+INSERT INTO students(students_name)
+VALUES ("Pam");
+
+INSERT INTO students(students_name)
+VALUES ("Michael");
+
+INSERT INTO students(students_name)
+VALUES ("Stanley");
+
+INSERT INTO students(students_name)
+VALUES ("Phyllis");
+
+INSERT INTO students(students_name)
+VALUES ("Kevin");
+
+INSERT INTO students(students_name)
+VALUES ("Oscar");
+
+INSERT INTO students(students_name)
+VALUES ("Angela");
+
+INSERT INTO students(students_name)
+VALUES ("Meredith");
+
+INSERT INTO students(students_name)
+VALUES ("Creed");
+
+INSERT INTO students(students_name)
+VALUES ("Kelly");
+
+INSERT INTO students(students_name)
+VALUES ("Ryan");
+
+INSERT INTO students(students_name)
+VALUES ("Dwight");
+
+INSERT INTO students(students_name)
+VALUES ("Toby");
+
+-- INSERTING PROFESSOR RECORDS --
+
+INSERT INTO professors(professors_name)
+VALUES ("David Wallace");
+
+INSERT INTO professors(professors_name)
+VALUES ("Jan Levinson");
+
+INSERT INTO professors(professors_name)
+VALUES ("Bob Vance");
+
+INSERT INTO professors(professors_name)
+VALUES ("Charles Minor");
+
+-- INSERTING COURSE RECORDS --
+
+INSERT INTO courses(courses_name, courses_professor_id)
+VALUES ("History of Paper", 1);
+
+INSERT INTO courses(courses_name, courses_professor_id)
+VALUES ("Dunder Mifflin Trivia", 2);
+
+INSERT INTO courses(courses_name, courses_professor_id)
+VALUES ("Scranton Geography", 3);
+
+INSERT INTO courses(courses_name, courses_professor_id)
+VALUES ("Warehouse Etiquette", 4);
+
+INSERT INTO courses(courses_name, courses_professor_id)
+VALUES ("Crime 101: The Scranton Strangler", 1);
+
+INSERT INTO courses(courses_name, courses_professor_id)
+VALUES ("Agrotourism 201", 2);
+
+-- INSERTING GRADE RECORDS --
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 1, 1);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 3, 1);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.75, 5, 1);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 6, 1);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 12, 1);
+
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.8, 7, 2);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.67, 9, 2);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.95, 11, 2);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 3, 2);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 13, 2);
+
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.84, 13, 3);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.77, 2, 3);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.93, 4, 3);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 1, 3);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 4, 3);
+
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.97, 13, 4);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.87, 2, 4);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.95, 4, 4);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 7, 4);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 10, 4);
+
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.67, 6, 5);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.47, 8, 5);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.55, 10, 5);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 8, 5);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 9, 5);
+
+
+
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.67, 12, 6);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.47, 14, 6);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.55, 1, 6);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.85, 6, 6);
+
+INSERT INTO grades(grades_percentage, grades_student_id, grades_course_id)
+VALUES (0.65, 12, 6);
+
+-- QUERY FOR AVERAGE GRADE GIVEN BY PROFESSOR --
+
+SELECT p.professors_name AS "Professor", AVG(g.grades_percentage)*100 AS "Average Grade"
+FROM professors p
+LEFT JOIN courses c
+ON c.courses_professor_id = p.professors_id
+LEFT JOIN grades g
+ON grades_course_id = courses_id
+GROUP BY p.professors_name;
+
+-- QUERY FOR HIGHEST GRADE STUDENT HAS RECEIVED --
+
+SELECT s.students_name AS "Student Name", MAX(g.grades_percentage)*100 AS "Highest Grade"
+FROM students s
+LEFT JOIN grades g
+ON s.students_id = g.grades_student_id
+GROUP BY s.students_name;
+
+-- QUERY FOR STUDENTS GROUPED BY COURSE --
+SELECT c.courses_name AS "Course", s.students_name AS "Student"
+FROM courses c
+LEFT JOIN grades g
+ON g.grades_course_id = c.courses_id
+LEFT JOIN students s
+ON s.students_id = g.grades_student_id;
+
+-- QUERY FOR AVERAGE GRADE OF COURSES, ARRANGED FROM LOWEST TO HIGHEST --
+SELECT c.courses_name AS "Course", AVG(g.grades_percentage)*100 AS "Average Grade"
+FROM courses c
+LEFT JOIN grades g
+ON g.grades_course_id = c.courses_id
+GROUP BY c.courses_name
+ORDER BY AVG(g.grades_percentage) ASC;
+
+-- QUERY FOR STUDENTS AND PROFESSORS WITH MOST SHARED COURSES --
+SELECT p.professors_name AS "Professor", s.students_name AS "Student", COUNT(*) AS "Shared Courses"
+FROM professors p
+LEFT JOIN courses c
+ON c.courses_professor_id = p.professors_id
+LEFT JOIN grades g
+ON g.grades_course_id = c.courses_id
+LEFT JOIN students s
+ON s.students_id = g.grades_student_id
+GROUP BY p.professors_name, s.students_name
+ORDER BY COUNT(*) DESC;
